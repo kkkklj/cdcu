@@ -1,0 +1,21 @@
+{
+  "name": "cdcu",
+  "version": "0.1.1",
+  "main": "index.js",
+  "bin": {
+    "cdcu": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "guomingya@pconline.com.cn",
+  "license": "ISC",
+  "keywords": [],
+  "description": "file uploader for cdc",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "form-data": "^3.0.0",
+    "jszip": "^3.2.2",
+    "minimist": "^1.2.0"
+  }
+}
