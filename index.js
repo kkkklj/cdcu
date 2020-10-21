@@ -9,7 +9,9 @@ const JSZip =  require('jszip')
 let filesUrl;
 let token = argv.t
 let part = argv.m
-if (!!token) {
+let project = argv.p
+
+if (!!token && !!project) {
   let projectUrl =  process.cwd()+'/';
   let distUrl = projectUrl + 'dist/';
 
@@ -38,16 +40,16 @@ if (!!token) {
       upData.append('tokentest',token)
       upData.append('filetest',fs.createReadStream(filesUrl))
 
-      targetUrl =  'https://cdc.pcauto.com.cn/project/uploader/test.php';
+      targetUrl =  `https://cdc.pconline.com.cn/project/u${project}/test.php`;
     }else{
       upData.append('token',token)
       upData.append('file',fs.createReadStream(filesUrl))
 
-      targetUrl =  'https://cdc.pcauto.com.cn/project/uploader/index.php';
+      targetUrl =  `https://cdc.pconline.com.cn/project/u${project}/dist.php`;
     }
 
     console.log('\n打包完成, 上传中...\n');
-    
+
     return axios({
       method:'post',
       url :targetUrl,
@@ -57,6 +59,8 @@ if (!!token) {
     }).then(res => {
 
       let data = res.data
+      console.log(data);
+
 
       console.log('\n'+data.msg)
 
@@ -69,9 +73,10 @@ if (!!token) {
       })
 
     }).catch((err) => {
-      
+      console.log('错误信息:', err.response.status);
+
       fs.unlink(filesUrl,(err)=>{
-        console.log('上传超时')
+        console.log('上传发生错误,请检查!')
       })
     });
   }
@@ -125,7 +130,7 @@ if (!!token) {
   })
 
 }else{
-  console.log('token不存在!')
+  console.log('检查token或者项目名')
 }
 
 process.on('SIGINT', function () {
