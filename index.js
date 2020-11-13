@@ -11,6 +11,16 @@ let token = argv.t
 let part = argv.m
 let project = argv.p
 
+try {
+  const ROOTPATH = process.cwd()
+  const pakgeJson = fs.readFileSync(path.join(ROOTPATH,'package.json'), 'utf8');
+  project = JSON.parse(pakgeJson).cdcu;
+  if(!project)
+  throw 'package.json 没有配置项目名';
+} catch (error) {
+  console.log('项目名解析失败 err-->',error);
+}
+
 if (!!token && !!project) {
   let projectUrl =  process.cwd()+'/';
   let distUrl = projectUrl + 'dist/';
