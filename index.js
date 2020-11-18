@@ -143,8 +143,9 @@ function getProject() {
     const ROOTPATH = process.cwd()
     const pakgeJson = fs.readFileSync(path.join(ROOTPATH,'package.json'), 'utf8');
     project = JSON.parse(pakgeJson).cdcu;
-    if(!project)
-    throw 'package.json 没有配置项目名';
+    if(!project) {
+      throw 'package.json 没有配置项目名';
+    }
   } catch (error) {
     console.log('项目名解析失败 err-->',error);
   }
